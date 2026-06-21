@@ -35,7 +35,11 @@ To make an informed recommendation, the experiment must provide statistically si
 
 
 
+
+
 ## Task 2: Define the North Star Metric
+
+
 
 ### Selected North Star Metric: Paid Conversion Rate
 
@@ -65,3 +69,133 @@ An increase in Paid Conversion Rate means more users become paying customers, le
 ### What could go wrong if this metric is optimized blindly
 
 Focusing only on Paid Conversion Rate could lead to unintended consequences. Users might convert initially but experience confusion or dissatisfaction later, resulting in higher refund requests, increased support tickets, or poor long-term retention. Therefore, guardrail metrics such as Refund Rate, Support Ticket Rate, Engagement Score, and Days to Convert must also be monitored.
+
+
+
+## Task 4: Clean and Prepare Experiment Data
+
+
+
+## Data Preparation and Quality Checks
+
+Before performing the experiment analysis, the dataset was reviewed to ensure data quality and suitability for A/B test evaluation.
+
+### Missing Values Check
+
+A missing value assessment was performed across all variables. Most fields contained complete data. Minor missing values were identified in the `device_type`, `traffic_source`, and `engagement_score` columns. A large number of missing values were observed in `days_to_convert`; however, this was expected because users who did not convert to a paid subscription do not have a conversion date. Therefore, no corrective action was required.
+| Column Name          | Missing Values |
+| -------------------- | -------------: |
+| user_id              |              0 |
+| signup_date          |              0 |
+| experiment_group     |              0 |
+| region               |              0 |
+| device_type          |             18 |
+| traffic_source       |             24 |
+| plan_type            |              0 |
+| visited_landing_page |              0 |
+| started_trial        |              0 |
+| completed_onboarding |              0 |
+| converted_to_paid    |              0 |
+| revenue_30d          |              0 |
+| support_tickets_30d  |              0 |
+| refund_requested     |              0 |
+| days_to_convert      |           1335 |
+| engagement_score     |             14 |
+
+
+### Group Count Validation
+
+The experiment dataset contained 1,408 users, with 693 users assigned to the Control group and 715 users assigned to the Treatment group. The distribution of users across groups was reasonably balanced, providing a reliable basis for comparison.
+| Group     | User Count |
+| --------- | ---------: |
+| Control   |        693 |
+| Treatment |        715 |
+| Total     |       1408 |
+
+
+### Duplicate User ID Check
+
+A duplicate review was performed on the `user_id` field. The analysis identified 8 unique duplicate user IDs, representing 16 duplicate records. These records were reviewed and flagged before analysis. No records were removed because the duplicates did not materially affect the experiment evaluation.
+
+| Check                    | Result                               |
+| ------------------------ | ------------------------------------ |
+| Duplicate User IDs Found | 8                                    |
+| Action Taken             | Reviewed and flagged before analysis |
+
+
+### Binary Value Validation
+
+All binary variables were validated to ensure that only valid values (0 and 1) were present. The fields `visited_landing_page`, `started_trial`, `completed_onboarding`, `converted_to_paid`, and `refund_requested` contained only valid binary values. No invalid binary values were detected and no corrective action was required.
+
+| Column               | Valid Values | Result |
+| -------------------- | ------------ | ------ |
+| visited_landing_page | 0,1          | Pass   |
+| started_trial        | 0,1          | Pass   |
+| completed_onboarding | 0,1          | Pass   |
+| converted_to_paid    | 0,1          | Pass   |
+| refund_requested     | 0,1          | Pass   |
+
+### Revenue Outlier Review
+
+Revenue values were reviewed for unusually high observations using the Interquartile Range (IQR) method.
+
+| Metric | Value |
+|----------|----------:|
+| Minimum Revenue | 0.00 |
+| Maximum Revenue | 8610.72 |
+| Average Revenue | 52.83 |
+| Revenue Records Above Upper Bound | 72 |
+
+The revenue distribution was highly skewed because a large proportion of users generated no revenue during the observation period. As a result, both the first quartile (Q1) and third quartile (Q3) were equal to zero, resulting in an IQR value of zero. A total of 72 revenue records exceeded the calculated upper bound and were flagged as potential outliers.
+
+These observations were retained in the dataset because they likely represent legitimate high-value customers and provide important information about business performance. Removing them could have understated the true revenue impact of the experiment.
+
+
+### Segment Distribution Validation
+
+Segment distribution was reviewed across Region, Device Type, Traffic Source, and Plan Type to ensure that the Control and Treatment groups were reasonably comparable before evaluating experiment outcomes.
+
+#### Region Distribution
+
+| Region | Control | Treatment |
+|----------|----------:|----------:|
+| East | 158 | 172 |
+| North | 203 | 180 |
+| South | 184 | 184 |
+| West | 148 | 179 |
+
+#### Device Type Distribution
+
+| Device Type | Control | Treatment |
+|-------------|----------:|----------:|
+| Desktop | 200 | 214 |
+| Mobile | 428 | 436 |
+| Tablet | 56 | 56 |
+| Missing | 9 | 9 |
+
+#### Traffic Source Distribution
+
+| Traffic Source | Control | Treatment |
+|----------------|----------:|----------:|
+| Email | 74 | 56 |
+| Organic | 246 | 241 |
+| Paid Search | 156 | 176 |
+| Referral | 81 | 91 |
+| Social | 130 | 133 |
+| Missing | 6 | 18 |
+
+#### Plan Type Distribution
+
+| Plan Type | Control | Treatment |
+|------------|----------:|----------:|
+| Basic | 223 | 235 |
+| Free | 361 | 368 |
+| Premium | 109 | 112 |
+
+#### Observation
+
+The Control and Treatment groups showed reasonably balanced representation across Region, Device Type, Traffic Source, and Plan Type. While minor differences were observed, no major imbalance was identified that would invalidate the experiment comparison.
+
+The Treatment group contained slightly more users from the West region and Paid Search traffic source. However, the overall distribution remained sufficiently similar across groups to support a fair evaluation of experiment performance.
+
+Based on these checks, the dataset was considered suitable for A/B test analysis.
