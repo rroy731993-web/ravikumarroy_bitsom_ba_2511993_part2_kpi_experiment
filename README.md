@@ -201,3 +201,31 @@ The Control and Treatment groups showed reasonably balanced representation acros
 The Treatment group contained slightly more users from the West region and Paid Search traffic source. However, the overall distribution remained sufficiently similar across groups to support a fair evaluation of experiment performance.
 
 Based on these checks, the dataset was considered suitable for A/B test analysis.
+
+
+## Task 5: Create Experiment Summary
+
+## Experiment Analysis Approach
+
+The experiment was evaluated by comparing user behavior and business outcomes between the Control group (existing onboarding experience) and the Treatment group (new onboarding experience).
+
+A summary table was created to compare key performance indicators across both groups, including:
+
+* User Count
+* Landing Page Visit Rate
+* Trial Start Rate
+* Onboarding Completion Rate
+* Paid Conversion Rate
+* Average Revenue Per User (ARPU)
+* Average Revenue Per Converted User (ARPCU)
+* Refund Rate
+* Support Ticket Rate
+* Average Engagement Score
+* Average Days to Convert
+
+The analysis focused on identifying whether the new onboarding experience improved user activation, engagement, conversion, and revenue outcomes.
+
+In addition to overall performance, segment-level analysis was performed using Paid Conversion Rate across Region, Device Type, and Traffic Source. This helped identify whether the treatment effect was consistent across different customer groups and whether any segments experienced weaker performance.
+
+The results showed that the Treatment group outperformed the Control group on most primary business metrics, including paid conversion, onboarding completion, engagement, and revenue per user. However, increases in support ticket rates and refund rates were identified as potential guardrail risks that require further evaluation before making a final rollout recommendation.
+
