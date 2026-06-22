@@ -1,3 +1,5 @@
+## Task 6: Frame Hypotheses
+
 # Hypothesis Test Notes
 
 ---
@@ -85,3 +87,40 @@ should be rolled out to all users.
 If the Treatment group demonstrates a statistically significant improvement in Paid Conversion Rate while maintaining 
 acceptable guardrail metrics, a broader rollout can be recommended. Otherwise, the company should continue testing or limit 
 deployment to specific user segments.
+
+
+## Task 7: Perform Hypothesis or A/B Test Analysis
+
+
+## Test Inputs
+
+| Metric | Control | Treatment |
+|----------|----------:|----------:|
+| Users | 693 | 715 |
+| Conversions | 22 | 50 |
+| Conversion Rate | 3.17% | 6.99% |
+
+## Test Results
+
+- Test Type: Two-Proportion Z-Test
+- Test Statistic (Z): 3.25
+- P-Value: 0.0006
+- Significance Level (α): 0.05
+
+## Decision
+
+Because the p-value (0.0006) is less than the significance level of 0.05, the Null Hypothesis is rejected.
+
+## Business Interpretation
+
+The Treatment group achieved a significantly higher Paid Conversion Rate than the Control group. Statistical evidence suggests that the observed improvement 
+is unlikely to be due to random chance.
+
+The new onboarding experience increased Paid Conversion Rate from 3.17% to 6.99%, representing a substantial improvement in user conversion performance.
+
+Based on the hypothesis test results, the Treatment experience demonstrates a positive impact on the primary business metric and should be considered for rollout, 
+subject to evaluation of guardrail metrics.
+
+
+
+
